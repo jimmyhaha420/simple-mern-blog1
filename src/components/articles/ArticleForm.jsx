@@ -2,24 +2,28 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
 
-const ArticleForm = () => {
+const ArticleForm = ({history}) => {
     const initialState = { title: '', text: '' };
     const [values, setValues] = useState(initialState);
+    
     const handleSubmit = e => {
         e.preventDefault()
           fetch('/articles', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(values)
+            body: JSON.stringify(values),
           })
             .then(response => {
               if (response.ok) {
                 alert('Article successfully created')
-                setValues(initialState)
+                return  response.json()
+                  .then(article => {
+                  history.push(`/articles/${article._id}`)
+                });
               }
             })
-            .catch(error => alert(error))
-        }
+            .catch(error => alert(error));
+        };
     return(
 
         <Form onSubmit ={handleSubmit}>
