@@ -6,18 +6,18 @@ const ArticleForm = ({history}) => {
     const initialState = { title: '', text: '' };
     const [values, setValues] = useState(initialState);
     
-    const handleSubmit = e => {
-        e.preventDefault()
+    const handleSubmit = (e) => {
+        e.preventDefault();
           fetch('/articles', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(values),
           })
-            .then(response => {
+            .then((response) => {
               if (response.ok) {
-                alert('Article successfully created')
+                alert('Article successfully created');
                 return  response.json()
-                  .then(article => {
+                  .then((article) => {
                   history.push(`/articles/${article._id}`)
                 });
               }
@@ -25,7 +25,7 @@ const ArticleForm = ({history}) => {
             .catch(error => alert(error));
         };
     return(
-
+      <div>
         <Form onSubmit ={handleSubmit}>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Title</Form.Label>
@@ -40,7 +40,8 @@ const ArticleForm = ({history}) => {
           Submit
         </Button>
       </Form>
-    )
+      </div>
+    );
 }
 
 export default ArticleForm

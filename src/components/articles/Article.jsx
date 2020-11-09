@@ -5,16 +5,18 @@ const Article = ({match}) => {
 
     useEffect(() => {
         fetch(`/articles/${match.params.articleId}`)
-          .then(response => response.json())
-          .then(article => setArticle(article))
-          .catch(error => alert(error))
+          .then((response) => response.json())
+          .then((article) => setArticle(article))
+          .catch((error) => alert(error))
       });
 
     return (
+      <div> 
         <article> 
-        <h1>{article.title}</h1>
-        <p>{article.text}</p>
+            <h1>{article.title}</h1>
+            <p>{article.text}</p>
         </article>
+      </div> 
     );
 };
 
